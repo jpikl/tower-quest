@@ -1,0 +1,131 @@
+0.11.1 (2017-09-24)
+- Ported to LÖVE 0.10.2
+- Some minor bugfixes.
+
+0.11.0 (unreleased)
+- Ported to LÖVE 0.9.1.
+- New game icon.
+- Added ending screen.
+- Added level editor instructions.
+- Simplified level 02-01.
+- Better diamond particles.
+- Better navigation in level selection.
+- Minimized window pauses the game.
+- Levels are stored as Lua files instead of XML.
+
+0.10.0 (2013-10-20)
+- Added level editor.
+- Added 8 new levels.
+- Added new game music.
+- Added level completion sound.
+- Added cheats.
+- Added game icon.
+- New graphics for diamonds.
+- New game loading screen.
+- New error screen.
+- New objects: rock, small/big dynamite.
+- It is possible to throw objects into abyss.
+- Separate volume settings for music and sounds.
+- Level selection screen has scroll bar.
+- Changed level data format to XML.
+- Simplified joystick controls.
+- Relicensed to MIT.
+- Some bugfixes.
+
+0.9.0 (2013-02-18)
+- Added 8 new levels.
+- Added switch and gate objects.
+- Added welcome screen.
+- Added credits.
+- Help screen was renamed to Controls and was simplified.
+- Changed description of most levels.
+- Options menu renamed to Settings.
+
+0.8.0 (2013-02-03)
+- Updated level 05-04.
+- Added 4 new levels.
+- Added visible memory usage in debug mode.
+- New level selection screen.
+- New 3+1 level completion system.
+- Fixed FPS limiter.
+- Fixed bug that caused skipping part of the game intro animation.
+- Fixed collision detection between shot and trap objects.
+
+0.7.0 (2012-09-21)
+- Added 4 new levels.
+- New enemies: skull, armor.
+- Fixed several bugs in save/load mechanism.
+
+0.6.0 (2012-09-16)
+- Added quick save/load keys and menu options.
+- Added 8 new levels.
+- Added title for each level.
+- Added game ending message.
+- Half-tile movement changed to full-tile.
+- The "continue" menu option starts the highest reached level (not floor).
+- Lowered volume for some sounds.
+- New objects: arrow tiles, water, trap.
+- Fixed handling of newline characters when loading level.
+- More error checks when loading level.
+
+0.5.0 (2012-09-06)
+- Added README file.
+- Added level creation tutorial.
+- Added game configuration via menu "options".
+- Added "custom levels" menu to run user-made levels.
+- Transition duration lowered to 1 second.
+- Level title screen can be skipped.
+- Level description is displayed as in-game dialog.
+- Enabled collision between player and treasure chest.
+- Fixed joystick input bug on Windows.
+- Fixed player animation.
+- Fixed rendering of game menus.
+- Small changes in some levels.
+- Changed level data format.
+- Several small bugfixes.
+
+0.4.2 (2012-09-03)
+- Fixed crash in game intro.
+
+0.4.1 (2012-09-03)
+- Crystals renamed to diamonds
+
+0.4.0 (2012-09-02)
+- Added "how to play" screen.
+- Added project license (simplified BSD license).
+- Added visible timer for displaying power up time.
+- Removed unnecessary particle effects
+- Refactored levels 01-02, 01-03, 01-04.
+- New levels: 02-01, 02-02, 02-03, 02-04.
+- New objects: smoke, shot, gravel, ladder (replaces stairs).
+- New enemies: red slime, blue slime.
+- New sounds: shot, smoke.
+- Improved background graphics.
+- Cursor disabled in fullscreen mode.
+- Space key can be used to confirm in game menu.
+- Enabled level testing without debug mode.
+- Fixed object collision avoidance.
+- Fixed player walk sound bug.
+- Several other bugfixes.
+- Source code cleanup.
+
+0.3.0 (2012-08-30)
+- Game resolution changed to 320x240.
+- New sound for crystal.
+- New graphics.
+- Added levels 01-01, 01-02, 01-03 and 01-04.
+- Added level title screen.
+- Changed level data format.
+
+0.2.0 (2012-08-15)
+- Added support for joystick input.
+- Added new types of crystal (red, black, blue, golden).
+- Added stone object.
+- Added stairs object.
+- Added --level command line option to select level in debug mode.
+- Fixed video mode switching.
+- Changed save file location.
+- Game menu bugfixes.
+
+0.1.0 (2012-08-09)
+- Initial version.

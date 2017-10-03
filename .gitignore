@@ -1,0 +1,5 @@
+/dist
+/sdk
+/.vscode
+/*.log
+/error.txt
