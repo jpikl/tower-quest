@@ -1,18 +1,26 @@
 # Tower Quest: The Unfinished Journey
 
-Tower Quest is a retro-themed puzzle game inspired by the NES classic [Adventures of Lolo][4].
+Tower Quest is a retro-themed puzzle game inspired by the NES classic
+[Adventures of Lolo][4].
 
-Your goal is to collect all diamonds in every level while moving things and avoiding enemies.
+Your goal is to collect all diamonds in every level while moving things
+and avoiding enemies.
 
 ## Status
 
 **This game is not finished ... and it will (probably) never be.**
 
-It was made during 2012 - 2013, but, due to lack of time and other circumstances, its development never reached a state when I would consider it a final product.
+It was made during 2012 - 2013, but, due to lack of time and other
+circumstances, its development never reached a state when I would consider
+it a final product.
 
-Recently, I rediscovered it sitting on my hard drive, and decided to publish it in its current state with some minor bugfixes.
+Recently, I rediscovered it sitting on my hard drive, and decided to publish
+it in its current state with some minor bugfixes.
 
-Do not expect a polished experience. There are placeholder assets everywhere, including annoying procedurally pre-generated music. The difficulty of levels is unbalanced sometimes ridiculously high. However, I think some people might still find it an interesting experience.
+Do not expect a polished experience. There are placeholder assets everywhere,
+including annoying procedurally pre-generated music. The difficulty of levels
+is unbalanced sometimes ridiculously high. However, I think some people might
+still find it an interesting experience.
 
 If anybody is interested, the source code is available on [github][1].
 
@@ -57,15 +65,18 @@ The latest release should be available on [itch.io][3].
 
 ## FAQ
 
-#### How do I start the game? There is no executable file.
+**How do I start the game? There is no executable file.**
 
-If you have downloaded the universal release (the one that does not include executable), you will have to install [LÖVE framework][5] (0.11) to run the game. After that, open the `.love` file directly or from command line using `love tower-quest.love`.
+If you have downloaded the universal release (the one that does not include
+executable), you will have to install [LÖVE framework][5] (0.11) to run
+the game. After that, open the `.love` file directly or from command line
+using `love tower-quest.love`.
 
-#### The game speed is too slow!
+**The game speed is too slow.**
 
 Enable *Turbo mode* in game settings.
 
-#### Where can I report bugs?
+**Where can I report bugs?**
 
 [Here][2], but I am not promising anything.
 
