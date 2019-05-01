@@ -1,9 +1,13 @@
+CREDITS
+
 Libraries
+
 - LÖVE by rude and others (http://love2d.org)
 - ProFi by Luke Perkin (https://gist.github.com/perky/2838755)
 - dkjson by David Kolf (http://dkolf.de/src/dkjson-lua.fsl)
 
 Graphics
+
 - Stephen Challener (http://opengameart.org/users/redshrike)
 - CharlesGabriel (http://opengameart.org/users/charlesgabriel)
 - Blarumyrran (http://opengameart.org/users/Blarumyrran)
@@ -16,10 +20,12 @@ Graphics
 - Tango Icon Library (http://tango.freedesktop.org/Tango_Icon_Library)
 
 Music & Sounds
+
 - abundant-music generator (http://abundant-music.com)
 - as3sfxr generator (http://www.superflashbros.net/as3sfxr)
 
 Full list of used graphics
+
 - http://opengameart.org/content/objects-for-16x16-tilesets
 - http://opengameart.org/content/sewer-tileset
 - http://opengameart.org/content/treasure-chests-32x32-and-16x16
