@@ -71,12 +71,10 @@ Enable *Turbo mode* in game settings.
 
 ## License
 
-This game is distributed under the [MIT License][6].
-See [LICENSE.txt](LICENSE.txt) for more details.
+Tower Quest is licensed under the [MIT license](LICENSE.txt).
 
 [1]: https://github.com/jpikl/tower-quest
 [2]: https://github.com/jpikl/tower-quest/issues
 [3]: https://evilnote4d.itch.io/tower-quest
 [4]: http://www.mobygames.com/game/nes/adventures-of-lolo
 [5]: https://love2d.org
-[6]: http://opensource.org/licenses/MIT
