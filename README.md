@@ -3,8 +3,8 @@
 Tower Quest is a retro-themed puzzle game inspired by the NES classic
 [Adventures of Lolo][4].
 
-Your goal is to collect all diamonds in every level while moving things
-and avoiding enemies.
+Your goal in every level is to collect all diamonds and exit while moving
+things and avoiding enemies.
 
 ## Status
 
@@ -86,6 +86,6 @@ Tower Quest is licensed under the [MIT license](LICENSE.txt).
 
 [1]: https://github.com/jpikl/tower-quest
 [2]: https://github.com/jpikl/tower-quest/issues
-[3]: https://evilnote4d.itch.io/tower-quest
+[3]: https://jpikl.itch.io/tower-quest
 [4]: http://www.mobygames.com/game/nes/adventures-of-lolo
 [5]: https://love2d.org
