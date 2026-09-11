@@ -50,14 +50,14 @@ function Switch:update()
         if not self:isPressed() then
             self.activated = false
             Room.activatedSwitches[self.group] = Room.activatedSwitches[self.group] - 1
-            sound:rewind()
+            sound:stop()
             sound:play()
         end
     else
         if self:isPressed() then
             self.activated = true
             Room.activatedSwitches[self.group] = Room.activatedSwitches[self.group] + 1
-            sound:rewind()
+            sound:stop()
             sound:play()
         end
     end

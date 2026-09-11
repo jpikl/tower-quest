@@ -195,7 +195,7 @@ function Game.update(delta)
     -- Is quit requested?
     if quitRequested then
         -- Switch game state in the moment the completion sound finishes
-        if completionSound:isStopped() then
+        if not completionSound:isPlaying() then
             quitRequested = false
             quitGame()
         end

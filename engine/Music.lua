@@ -23,7 +23,7 @@ local function pauseMusic(paused)
         if paused then
             currentMusic:pause()
         else
-            currentMusic:resume()
+            currentMusic:play()
         end
     end
 end

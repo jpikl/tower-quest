@@ -41,16 +41,7 @@ function SourceWrapper:setGlobalVolume(volume)
     self.source:setVolume(self.globalVolume * self.localVolume)
 end
 
--- Create rest of the functions
-for i, funcName in ipairs { "type", "typeOf", "getAttenuationDistances", "getChannels",
-                            "getCone", "getDirection", "getType", "getPitch", "getPosition",
-                            "getRolloff", "getVelocity", "getVolume", "getVolumeLimits",
-                            "isLooping", "isPaused", "isPlaying", "isRelative",
-                            "isStopped", "pause", "play", "resume", "rewind",
-                            "seek", "setAttenuationDistances", "setDirection", "setCone",
-                            "setLooping", "setPitch", "setPosition", "setRelative",
-                            "setRolloff", "setVelocity", "setVolumeLimits", "stop", "tell" } do
-
+for i, funcName in ipairs { "isPlaying", "pause", "play", "stop", "setLooping" } do
     SourceWrapper[funcName] = function(self, ...)
         return self.source[funcName](self.source, ...)
     end
@@ -84,7 +75,7 @@ end
 
 -- Returns master volume
 function Audio.getVolume()
-    love.audio.getVolume()
+    return love.audio.getVolume()
 end
 
 -- Sets sounds volume
