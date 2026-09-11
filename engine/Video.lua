@@ -102,7 +102,7 @@ function Video.setVideoMode(fullscreen, scale)
         love.window.setMode(screenWidth, screenHeight, {
             fullscreen = true,
             fullscreentype = fullscreenType,
-            vsync = verticalSynch
+            vsync = verticalSynch and 1 or 0
         })
 
         -- Clear possible artifacts in both frame buffers
@@ -118,7 +118,7 @@ function Video.setVideoMode(fullscreen, scale)
         viewScale = windowScale
         love.window.setMode(viewWidth, viewHeight, {
             fullscreen = false,
-            vsync = verticalSynch
+            vsync = verticalSynch and 1 or 0
         })
     end
 

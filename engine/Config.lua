@@ -106,7 +106,7 @@ function Config.apply(t)
     t.window.height = Config.gameHeight or t.window.height
     t.window.icon = Config.windowIcon or t.window.icon
     t.window.fullscreen = false
-    t.window.vsync = Config.verticalSynch ~= false
+    t.window.vsync = (Config.verticalSynch ~= false) and 1 or 0
 end
 
 return Config
