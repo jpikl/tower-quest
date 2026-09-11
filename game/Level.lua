@@ -134,7 +134,7 @@ function Level:load(fileName, mode)
     -- Check file existence
     if type(fileName) ~= "string" then
         return "No file name specified"
-    elseif not love.filesystem.isFile(fileName) then
+    elseif love.filesystem.getInfo(fileName, "file") == nil then
         return ("File '%s' not found"):format(fileName)
     end
 

@@ -24,7 +24,7 @@ end
 
 -- Tests if profile exists
 function Profile:exists()
-    return love.filesystem.isFile(self.fileName)
+    return love.filesystem.getInfo(self.fileName, "file") ~= nil
 end
 
 -- Loads profile data from file

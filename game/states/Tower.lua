@@ -67,7 +67,7 @@ function Tower.load()
         for room = 1, 4 do
             -- Continue until next file does not exists
             local fileName = string.format("levels/%02d-%02d.lua", floor, room)
-            if not love.filesystem.isFile(fileName) then
+            if love.filesystem.getInfo(fileName, "file") == nil then
                 finished = true
                 break
             end

@@ -30,7 +30,7 @@ function LevelsMenu:reload()
     self.levels = {}
 
     -- Check if directory exists
-    if not love.filesystem.exists(self.directory) then
+    if love.filesystem.getInfo(self.directory) == nil then
         Log.info("Creating directory '%s'", self.directory)
         love.filesystem.createDirectory(self.directory)
         return
@@ -40,7 +40,7 @@ function LevelsMenu:reload()
     Log.info("Searching levels in '%s'", self.directory)
     for i, file in ipairs(love.filesystem.getDirectoryItems(self.directory)) do
         local path = File.path(self.directory, file)
-        if love.filesystem.isFile(path) and file:match('^.+%.lua$') then
+        if love.filesystem.getInfo(path, "file") and file:match('^.+%.lua$') then
             Log.info("Processing '%s'", file)
             local metadata, error = Level(path, "metadata")
             if metadata then

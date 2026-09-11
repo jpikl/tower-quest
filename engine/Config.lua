@@ -58,7 +58,7 @@ end
 -- Loads configuration from file
 function Config.load()
     local file = Config.configFile or "config.json"
-    if love.filesystem.isFile(file) then
+    if love.filesystem.getInfo(file, "file") then
         Log.info("Loading configuration '%s'", file)
         local data, message = Json.load(file)
         if data then
