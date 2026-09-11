@@ -79,8 +79,8 @@ Assets.addFactory("Font", function(param1, param2)
         local path = File.path(fontsDirectory, param1)
         Log.info("Loading font '%s'", path)
         if imageExtensions[path:sub(#path - 3)] then
-            local image = love.graphics.newImage(path)
-            return love.graphics.newImageFont(image, param2)
+            local imageData = love.image.newImageData(path)
+            return love.graphics.newImageFont(imageData, param2)
         else
             return love.graphics.newFont(path, param2 or 12)
         end
