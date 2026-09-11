@@ -158,6 +158,16 @@ function love.visible(visible)
     end
 end
 
+-- Processes change of window focus (minimize, alt-tab)
+function love.focus(focus)
+    Log.info("Window focus: %s", focus)
+    if focus then
+        Music.resume()
+    else
+        Music.pause()
+    end
+end
+
 -- Updates game
 function love.update(delta)
     if screenshotsQueue then

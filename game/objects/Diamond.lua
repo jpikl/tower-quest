@@ -30,7 +30,7 @@ function Diamond:Diamond(x, y, sprite, powerUp)
     self.particles:setSizes(0.5, 0.5, 0.1)
     self.particles:setColors(r, g, b, 0.75, r, g, b, 0.75, r, g, b, 0)
     self.particles:setPosition(self.w / 2, self.h / 2)
-    self.particles:setAreaSpread("normal", self.w / 5, self.h / 5)
+    self.particles:setEmissionArea("normal", self.w / 5, self.h / 5)
     self.particles:setInsertMode("random")
 
     Room.diamondsCount = Room.diamondsCount + 1
