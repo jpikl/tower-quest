@@ -52,7 +52,7 @@ local function checkLoveInitialized()
     end
 
     -- Create window if it does not exists yet
-    if not love.graphics.isCreated() or not love.window.isCreated() then
+    if not love.graphics.isActive() or not love.window.isOpen() then
         if not pcall(love.window.setMode, 640, 480) then
             return false
         end
@@ -143,7 +143,7 @@ local function debugErrorHandler(message)
 
     -- Render the report on the screen
     handlerLoop(function()
-        love.graphics.setNewFont(12)
+        love.graphics.setFont(love.graphics.newFont(12))
     end, function()
         love.graphics.clear(1, 0, 0)
         love.graphics.setColor(0, 0, 0)
@@ -185,7 +185,7 @@ local function releaseErrorHandler(message)
         width = love.window.getMode()
         fontSize = math.max(12, width / 40) -- Choose font size according to screen size
         border = 2 * fontSize
-        love.graphics.setNewFont(fontSize)
+        love.graphics.setFont(love.graphics.newFont(fontSize))
     end, function()
         love.graphics.clear(1, 0, 0)
         love.graphics.setColor(0, 0, 0)
@@ -205,9 +205,9 @@ function Reporter.init(config)
 
     -- Hook callbacks
     if config.debugMode then
-        love.errhand = debugErrorHandler
+        love.errorhandler = debugErrorHandler
     else
-        love.errhand = releaseErrorHandler
+        love.errorhandler = releaseErrorHandler
     end
 end
 
