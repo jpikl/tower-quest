@@ -4,7 +4,7 @@ local Log    = require("engine.Log")
 
 -- Make default configuration
 Config.init {
-    loveVersion = "0.10.2",
+    loveVersion = "11.5",
 
     gameName = "Tower Quest",
     gameCode = "tower-quest",

@@ -19,7 +19,7 @@ DIST_DIR=dist
 # LOVE configuration
 ################################################################################
 
-LOVE_VERSION=0.10.2
+LOVE_VERSION=11.5
 
 ################################################################################
 # Game configuration
@@ -63,7 +63,7 @@ WIN64_SDK_NAME=love-$LOVE_VERSION-win64
 WIN64_SDK_ZIP_NAME=$WIN64_SDK_NAME.zip
 WIN64_SDK_ZIP=$SDK_DIR/$WIN64_SDK_ZIP_NAME
 WIN64_SDK_DIR=$SDK_DIR/$WIN64_SDK_NAME
-WIN64_SDK_URL=https://bitbucket.org/rude/love/downloads/$WIN64_SDK_ZIP_NAME
+WIN64_SDK_URL=https://github.com/love2d/love/releases/download/$LOVE_VERSION/$WIN64_SDK_ZIP_NAME
 WIN64_SDK_LICENSE=$WIN64_SDK_DIR/license.txt
 WIN64_SDK_SOURCES="$WIN64_SDK_DIR/*.dll"
 
@@ -71,11 +71,11 @@ WIN64_SDK_SOURCES="$WIN64_SDK_DIR/*.dll"
 # Max OS X SDK configuration
 ################################################################################
 
-MACOSX_SDK_NAME=love-$LOVE_VERSION-macosx-x64
+MACOSX_SDK_NAME=love-$LOVE_VERSION-macos
 MACOSX_SDK_ZIP_NAME=$MACOSX_SDK_NAME.zip
 MACOSX_SDK_ZIP=$SDK_DIR/$MACOSX_SDK_ZIP_NAME
 MACOSX_SDK_DIR=$SDK_DIR/$MACOSX_SDK_NAME
-MACOSX_SDK_URL=https://bitbucket.org/rude/love/downloads/$MACOSX_SDK_ZIP_NAME
+MACOSX_SDK_URL=https://github.com/love2d/love/releases/download/$LOVE_VERSION/$MACOSX_SDK_ZIP_NAME
 
 ################################################################################
 # Resource Hacker configuration
