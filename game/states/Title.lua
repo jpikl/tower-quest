@@ -39,7 +39,7 @@ end
 function Title.init()
     -- Initialize title menu
     titleMenu.closeable = false
-    titleMenu.backgroundColor = { 0, 0, 0, 128 }
+    titleMenu.backgroundColor = { 0, 0, 0, 0.5 }
     titleMenu:addItem("Start Game", startGame)
     titleMenu:addItem("Custom Levels", function() customLevelsMenu:show(true) end)
     titleMenu:addItem("Level Editor", function() State.switch("Editor") end)
@@ -49,9 +49,9 @@ function Title.init()
     titleMenu:addItem("Quit", love.event.quit)
 
     -- Initialize other menus
-    settingsMenu.backgroundColor = { 0, 0, 0, 128 }
+    settingsMenu.backgroundColor = { 0, 0, 0, 0.5 }
     settingsMenu.parent = titleMenu
-    customLevelsMenu.backgroundColor = { 0, 0, 0, 128 }
+    customLevelsMenu.backgroundColor = { 0, 0, 0, 0.5 }
     customLevelsMenu.parent = titleMenu
     customLevelsMenu.maxVisibleSize = 7
 
@@ -86,9 +86,9 @@ end
 -- Draws title screen
 function Title.draw()
     -- Draw sky
-    love.graphics.setColor(167, 186, 218)
+    love.graphics.setColor(0.65, 0.73, 0.85)
     love.graphics.rectangle("fill", 0, 0, Config.gameWidth, Config.gameHeight)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 
     -- Draw clouds and background
     Clouds.drawBack()

@@ -58,7 +58,7 @@ function Shot:update(delta)
         particles:setLinearAcceleration(0, 150, 0, 150)
         particles:setSpeed(50, 60)
         particles:setSizes(0.5)
-        particles:setColors(255, 0, 0, 255, 255, 0, 0, 0)
+        particles:setColors(1, 0, 0, 1, 1, 0, 0, 0)
         Room.drawParticles(particles, self.x, self.y, 1)
     end
 end

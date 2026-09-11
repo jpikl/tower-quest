@@ -69,7 +69,7 @@ function Sword:update(delta)
         particles:setLinearAcceleration(0, 150, 0, 150)
         particles:setSpeed(50, 60)
         particles:setSizes(0.5)
-        particles:setColors(36, 48, 47, 255, 36, 48, 47, 0)
+        particles:setColors(0.14, 0.19, 0.18, 1, 0.14, 0.19, 0.18, 0)
         Room.drawParticles(particles, self.x, self.y, 1)
     end
 end

@@ -176,11 +176,11 @@ function Tower.draw()
     local sliderProgress = (topFloor - 3) / (maxFloor - 3)
     local sliderX = 298
     local sliderY = 204 - sliderHeight - (144 - sliderHeight) * sliderProgress
-    love.graphics.setColor(255, 255, 255, 128)
+    love.graphics.setColor(1, 1, 1, 0.5)
     uiSpriteSheet[2]:draw(sliderX, 55)
     uiSpriteSheet[3]:draw(sliderX, 202)
     love.graphics.rectangle("fill", sliderX + 1, 60, 6, 144)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     uiSpriteSheet[2]:draw(sliderX, sliderY - 5)
     uiSpriteSheet[3]:draw(sliderX, sliderY + sliderHeight - 2)
     love.graphics.rectangle("fill", sliderX + 1, sliderY, 6, sliderHeight)

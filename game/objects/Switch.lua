@@ -11,9 +11,9 @@ local sound = Assets.sounds.switch
 
 -- Blending color for each group.
 Switch.groupColors = {
-    white = { 255, 255, 255 },
-    red = { 188, 96, 96 },
-    blue = { 122, 155, 200 }
+    white = { 1, 1, 1 },
+    red = { 0.74, 0.38, 0.38 },
+    blue = { 0.48, 0.61, 0.78 }
 }
 
 -- Constructor
@@ -41,7 +41,7 @@ function Switch:draw()
     end
 
     -- Reset basic color
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 -- Updates switch

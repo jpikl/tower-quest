@@ -208,14 +208,14 @@ function UILayer:draw()
 
     -- Draw grid
     if self.showGrid then
-        love.graphics.setColor(255, 255, 255, 48)
+        love.graphics.setColor(1, 1, 1, 0.19)
         for x = 0, width, 16 do
             love.graphics.line(x, 0, x, height)
         end
         for y = 16, height, 16 do
             love.graphics.line(0, y, width, y)
         end
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
     end
 
     -- Draw bars

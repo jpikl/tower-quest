@@ -18,11 +18,11 @@ local timeTotal = 1         -- Total time
 local function simpleRenderer(progress, width, height)
     local alpha = 0
     if progress < 0.333 then
-        alpha = 255 * progress / 0.333
+        alpha = progress / 0.333
     elseif progress < 0.666 then
-        alpha = 255
+        alpha = 1
     else
-        alpha = 255 * (1.0 - progress) / 0.333
+        alpha = (1.0 - progress) / 0.333
     end
     love.graphics.setColor(0, 0, 0, alpha)
     love.graphics.rectangle("fill", 0, 0, width, height)

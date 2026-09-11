@@ -253,14 +253,14 @@ addMapping {
     class       = "Switch",
     parameters  = { "red" },
     description = "Red Switch - When something is placed on it, all red gates will open.",
-    image       = objectsSprites[23]:clone():blend(188, 96, 96)
+    image       = objectsSprites[23]:clone():blend(0.74, 0.38, 0.38)
 }
 addMapping {
     character   = "3",
     class       = "Switch",
     parameters  = { "blue" },
     description = "Blue Switch - When something is placed on it, all blue gates will open.",
-    image       = objectsSprites[23]:clone():blend(122, 155, 200)
+    image       = objectsSprites[23]:clone():blend(0.48, 0.61, 0.78)
 }
 addMapping {
     character   = "A",
@@ -274,14 +274,14 @@ addMapping {
     class       = "Gate",
     parameters  = { "red" },
     description = "Red Gate - Blocks movement until it's opened by a red switch. After releasing the switch, gate closes unless there is an object on it. Explosive objects will be destroyed by closed gate.",
-    image       = objectsSprites[21]:clone():blend(188, 96, 96)
+    image       = objectsSprites[21]:clone():blend(0.74, 0.38, 0.38)
 }
 addMapping {
     character   = "C",
     class       = "Gate",
     parameters  = { "blue" },
     description = "Blue Gate - Blocks movement until it's opened by a blue switch. After releasing the switch, gate closes unless there is an object on it. Explosive objects will be destroyed by closed gate.",
-    image       = objectsSprites[21]:clone():blend(122, 155, 200)
+    image       = objectsSprites[21]:clone():blend(0.48, 0.61, 0.78)
 }
 
 -- Enemies

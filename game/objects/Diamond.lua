@@ -28,7 +28,7 @@ function Diamond:Diamond(x, y, sprite, powerUp)
     self.particles:setParticleLifetime(2)
     self.particles:setLinearAcceleration(0, -15, 0, -15)
     self.particles:setSizes(0.5, 0.5, 0.1)
-    self.particles:setColors(r, g, b, 192, r, g, b, 192, r, g, b, 0)
+    self.particles:setColors(r, g, b, 0.75, r, g, b, 0.75, r, g, b, 0)
     self.particles:setPosition(self.w / 2, self.h / 2)
     self.particles:setAreaSpread("normal", self.w / 5, self.h / 5)
     self.particles:setInsertMode("random")
@@ -45,9 +45,9 @@ end
 -- Draws diamond
 function Diamond:draw()
     if self.obtained then
-        love.graphics.setColor(255, 255, 255, 255 * self.timeout)
+        love.graphics.setColor(1, 1, 1, self.timeout)
         self:drawSprite(self.sprite)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
     else
         self:drawSprite(self.sprite)
         Room.drawParticles(self.particles, self.x, self.y)

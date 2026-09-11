@@ -55,13 +55,13 @@ function Button:draw(x, y)
         y = y + 1
     end
     if not self.enabled then
-        love.graphics.setColor(255, 255, 255, 32)
+        love.graphics.setColor(1, 1, 1, 0.13)
     end
     self.image:draw(x, y)
     if self.checked then
         sprites[16]:draw(x, y)
     end
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     if self.activated then
         sprites[24]:draw(x, y)
     end

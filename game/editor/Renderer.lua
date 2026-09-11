@@ -4,18 +4,18 @@ local Renderer = {}
 -- Base colors
 local baseColors   = {}
 baseColors.fill0   = { 0, 0, 0 }
-baseColors.fill1   = { 64, 64, 64 }
-baseColors.fill2   = { 96, 96, 96 }
-baseColors.border1 = { 128, 128, 128 }
-baseColors.border2 = { 160, 160, 160 }
-baseColors.select  = { 128, 128, 128 }
+baseColors.fill1   = { 0.25, 0.25, 0.25 }
+baseColors.fill2   = { 0.38, 0.38, 0.38 }
+baseColors.border1 = { 0.5, 0.5, 0.5 }
+baseColors.border2 = { 0.63, 0.63, 0.63 }
+baseColors.select  = { 0.5, 0.5, 0.5 }
 
 -- Highlighted colors
 local hlColors   = {}
-hlColors.fill0   = { 32, 32, 32 }
-hlColors.fill1   = { 128, 128, 128 }
-hlColors.fill2   = { 160, 160, 160 }
-hlColors.border2 = { 224, 224, 224 }
+hlColors.fill0   = { 0.13, 0.13, 0.13 }
+hlColors.fill1   = { 0.5, 0.5, 0.5 }
+hlColors.fill2   = { 0.63, 0.63, 0.63 }
+hlColors.border2 = { 0.88, 0.88, 0.88 }
 
 -- Returns target color
 function Renderer.getColor(name, highlighted)
@@ -33,7 +33,7 @@ end
 
 -- Uses default drawing color
 function Renderer.setDefaultColor()
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 -- Draws line

@@ -68,7 +68,7 @@ end
 function Video.beginDrawing()
     love.graphics.translate(viewX, viewY)
     love.graphics.scale(viewScale, viewScale)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 -- Finishes drawing

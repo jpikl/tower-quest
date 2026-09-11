@@ -13,7 +13,7 @@ local function drawDebug()
     if debugVisible then
         local fps = ("%.2f"):format(1 / love.timer.getAverageDelta())
         local memory = math.floor(collectgarbage("count")) .. " KiB"
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
         love.graphics.print("Memory: " .. memory .. "\nFPS: " .. fps, 10, 10)
     end
 end

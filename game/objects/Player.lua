@@ -14,11 +14,11 @@ local deathSound = Assets.sounds.death     -- Death sound
 
 -- Colors for each power-up
 Player.powerUpColors = {
-    none = { 226, 255, 136 },
-    shot = { 241, 86, 24 },
-    power =  { 63, 22, 1 },
-    immortality = { 160, 167, 241 },
-    speed = { 251, 237, 142 }
+    none = { 0.89, 1, 0.53 },
+    shot = { 0.95, 0.34, 0.09 },
+    power =  { 0.25, 0.09, 0.01 },
+    immortality = { 0.63, 0.65, 0.95 },
+    speed = { 0.98, 0.93, 0.56 }
 }
 
 -- Constructor
@@ -123,13 +123,13 @@ function Player:draw()
 
     -- Set alpha when player is dying
     if not self.alive then
-        love.graphics.setColor(255, 255, 255, 255 * 2 * self.destroyTimeout)
+        love.graphics.setColor(1, 1, 1, 2 * self.destroyTimeout)
     -- Blend color when player has power-up
     elseif self.powerUp then
         local timeout = self.powerUpTimeout
         local percentage = (timeout % 2 > 1) and (timeout % 1) or (1 - timeout % 1)
         local color = Player.powerUpColors[self.powerUp]
-        local base = percentage * 255
+        local base = percentage
         local r = base + (1 - percentage) * color[1]
         local g = base + (1 - percentage) * color[2]
         local b = base + (1 - percentage) * color[3]
@@ -140,7 +140,7 @@ function Player:draw()
 
     -- Draw player
     self.animation:draw(self.x, self.y - 2)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 -- Updates player

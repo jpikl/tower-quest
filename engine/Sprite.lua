@@ -85,7 +85,7 @@ function Sprite:draw(x, y, r, sx, sy, ...)
     if self.color then
         love.graphics.setColor(self.color)
         love.graphics.draw(self.image, self.quad, x, y, r, sx, sy, ...)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
     else
         love.graphics.draw(self.image, self.quad, x, y, r, sx, sy, ...)
     end

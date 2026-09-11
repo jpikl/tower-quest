@@ -38,8 +38,8 @@ end
 function Notify.draw()
     if notifyTime > 0 then
         local width = love.graphics.getFont():getWidth(notifyText)
-        local alpha = math.min(255, notifyTime / fadeDuration * 255)
-        love.graphics.setColor(255, 255, 255, alpha)
+        local alpha = math.min(1, notifyTime / fadeDuration)
+        love.graphics.setColor(1, 1, 1, alpha)
         love.graphics.print(notifyText, gameWidth - width - 10, 10)
     end
 end

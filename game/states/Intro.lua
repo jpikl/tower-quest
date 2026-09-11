@@ -17,7 +17,7 @@ there was a tower full of puzzles, treasures and deadly traps...
 
 -- Black screen animation variables
 local blackScreenTime = 7
-local blackScreenAlpha = 255
+local blackScreenAlpha = 1
 
 -- Background animation variables
 local bg1Image = Assets.images.intro1
@@ -41,7 +41,7 @@ local playerX = (Config.gameWidth - 16) / 2
 local playerY = Config.gameHeight + 16
 local playerStartY = Config.gameHeight + 16
 local playerEndY = Config.gameHeight - 16 * 7.1
-local playerAlpha = 255
+local playerAlpha = 1
 
 -- Activates intro
 function Intro.activate()
@@ -52,11 +52,11 @@ end
 -- Draws intro
 function Intro.draw()
     -- Draw sky
-    love.graphics.setColor(167, 186, 218)
+    love.graphics.setColor(0.65, 0.73, 0.85)
     love.graphics.rectangle("fill", 0, 0, Config.gameWidth, Config.gameHeight)
 
     -- Draw background clouds
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     Clouds.drawBack()
 
     -- Draw repeatedly middle part of the tower
@@ -84,7 +84,7 @@ function Intro.draw()
     if playerY > playerEndY then
         playerAnimation:draw(playerX, playerY)
     elseif playerAlpha > 0 then
-        love.graphics.setColor(255, 255, 255, playerAlpha)
+        love.graphics.setColor(1, 1, 1, playerAlpha)
         playerSpriteSheet[2]:draw( playerX, playerY)
     end
 
@@ -97,13 +97,13 @@ function Intro.draw()
         love.graphics.rectangle("fill", 0, 0, Config.gameWidth, Config.gameHeight)
         local titleAlpha
         if blackScreenTime > 1 then
-            titleAlpha = 255
+            titleAlpha = 1
         elseif blackScreenTime > 0.5 then
-            titleAlpha = 255 * (1 - (1 - blackScreenTime) / 0.5)
+            titleAlpha = 1 - (1 - blackScreenTime) / 0.5
         else
             titleAlpha = 0
         end
-        love.graphics.setColor(255, 255, 255, titleAlpha)
+        love.graphics.setColor(1, 1, 1, titleAlpha)
         love.graphics.printf(introMessage, (Config.gameWidth - 200) / 2, 90, 200, "center")
     end
 end
@@ -116,7 +116,7 @@ function Intro.update(delta)
 
     -- Phase 2: Disappearing black screen
     elseif blackScreenAlpha > 0 then
-        blackScreenAlpha = blackScreenAlpha - 128 * delta
+        blackScreenAlpha = blackScreenAlpha - 0.5 * delta
 
     -- Phase 3: Walking player
     elseif playerY > playerEndY then
@@ -125,8 +125,8 @@ function Intro.update(delta)
         playerY = math.max(playerY - 25 * delta, playerEndY)
 
     -- Phase 4: Disappearing player (+ pause)
-    elseif playerAlpha > -128 then
-        playerAlpha = playerAlpha - 200 * delta
+    elseif playerAlpha > -0.5 then
+        playerAlpha = playerAlpha - 0.78 * delta
 
     -- Phase 5: Move camera to the top of the tower
     elseif cameraY > 0 then

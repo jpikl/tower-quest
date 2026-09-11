@@ -41,7 +41,7 @@ function Water:sinkObject(object)
     particles:setLinearAcceleration(0, 150, 0, 150)
     particles:setSpeed(40, 50)
     particles:setSizes(0.4)
-    particles:setColors(26, 69, 126, 255, 26, 69, 126, 0)
+    particles:setColors(0.1, 0.27, 0.49, 1, 0.1, 0.27, 0.49, 0)
     Room.drawParticles(particles, self.x, self.y, 1)
 end
 

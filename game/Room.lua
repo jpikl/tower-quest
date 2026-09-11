@@ -169,9 +169,9 @@ end
 
 -- Draws message
 local function drawMessage(message, border, r, g, b, a)
-    love.graphics.setColor(r, g, b, a or 255)
+    love.graphics.setColor(r, g, b, a or 1)
     love.graphics.rectangle("fill", 0, 0, Config.gameWidth, Config.gameHeight)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.printf(message, border, border, Config.gameWidth - 2 * border)
 end
 
@@ -179,7 +179,7 @@ end
 function Room.draw()
     -- Draw error message
     if error then
-        drawMessage(error, 32, 255, 0, 0)
+        drawMessage(error, 32, 1, 0, 0)
         return
     end
 
@@ -199,11 +199,11 @@ function Room.draw()
         local total = item.time + 1
         local value = math.floor(total)
         local ratio = total - value
-        love.graphics.setColor(255, 255, 255, 255 * ratio)
+        love.graphics.setColor(1, 1, 1, ratio)
         love.graphics.print(tostring(value), item.x, item.y - 8 * (1 - ratio))
     end
     love.graphics.setFont(Assets.fonts.normal)
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 
     -- Draw particles
     for i, item in ipairs(particles) do
@@ -215,7 +215,7 @@ function Room.draw()
 
     -- Draw text message
     if message then
-        drawMessage(message, 48, 0, 0, 0, 196)
+        drawMessage(message, 48, 0, 0, 0, 0.77)
     end
 end
 

@@ -106,7 +106,7 @@ function Menu:draw()
     love.graphics.rectangle("fill", menuX, menuY, menuWidth, menuHeight)
 
     -- Draw top and bottom arrow arrow
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
     local arrowX = menuX + (menuWidth - sprites[1].width) / 2
     if self.topItem ~= 1 then
         sprites[2]:draw(arrowX, menuY)

@@ -112,7 +112,7 @@ end
 -- Initializes game
 function Game.init()
     -- Initialize game menu
-    gameMenu.backgroundColor = { 0, 0, 0, 196 }
+    gameMenu.backgroundColor = { 0, 0, 0, 0.77 }
     gameMenu:addItem("Continue")
     gameMenu:addItem("Restart", restartRoom)
     gameMenu:addItem("Save game", quickSave)
@@ -126,7 +126,7 @@ function Game.init()
     retryMenu:addItem("Quit", quitGame)
 
     -- Initialize settings menu
-    settingsMenu.backgroundColor = { 0, 0, 0, 196 }
+    settingsMenu.backgroundColor = { 0, 0, 0, 0.77 }
     settingsMenu.parent = gameMenu
 
     -- Initialize UI manager
@@ -173,9 +173,9 @@ function Game.draw()
 
     -- Draw red screen when player is dead
     if Room.isStarted() and not Player.instance.alive then
-        love.graphics.setColor(255, 0, 0, 160)
+        love.graphics.setColor(1, 0, 0, 0.63)
         love.graphics.rectangle("fill", 0, 0, Config.gameWidth, Config.gameHeight)
-        love.graphics.setColor(255, 255, 255)
+        love.graphics.setColor(1, 1, 1)
         love.graphics.setFont(Assets.fonts.big)
         love.graphics.printf("You have died!", 0, 64, Config.gameWidth, "center")
         love.graphics.setFont(Assets.fonts.normal)

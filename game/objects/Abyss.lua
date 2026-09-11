@@ -42,14 +42,14 @@ function Abyss:draw()
         if inverseProgress <= 0.0 then inverseProgress = 0.001 end
         local progress = 1.0 - inverseProgress
 
-        love.graphics.setColor(255, 255, 255, 255 * inverseProgress)
+        love.graphics.setColor(1, 1, 1, inverseProgress)
         love.graphics.push()
         love.graphics.translate(progress * (obj.x + obj.w / 2), progress * (obj.y + obj.h / 2))
         love.graphics.scale(inverseProgress, inverseProgress)
         obj:draw()
         love.graphics.pop()
     end
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
 end
 
 -- Updates abyss
