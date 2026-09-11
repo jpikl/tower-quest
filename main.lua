@@ -16,6 +16,8 @@ local Notify     = require("game.Notify")
 
 -- Variables
 local busy = false
+local screenshotsQueue = nil -- Level names waiting for screenshot (screenshot mode)
+local screenshotsPending = 0 -- Screenshot captures waiting for callback
 
 -- Setups screen with 'loading...' title
 local function setupLoadingScreen()
@@ -56,31 +58,52 @@ local function loadMetadata()
     require("game.ui.LevelsMenu").load()
 end
 
--- Makes screenshot of each level
-local function makeScreenshots()
+-- Renders level for screenshot
+local function renderScreenshotLevel(name)
     local Room = require("game.Room")
+
+    Room.create("levels/" .. name .. ".lua")
+    Room.skipMessage()
+    love.graphics.reset()
+    love.graphics.clear()
+    Video.beginDrawing()
+    Room.draw()
+    Video.endDrawing()
+end
+
+-- Enqueues screenshots of all levels
+local function makeScreenshots()
     local Tower = require("game.states.Tower")
 
-    local screenshotsDir = "screenshots"
-    love.filesystem.createDirectory(screenshotsDir)
+    love.filesystem.createDirectory("screenshots")
+
+    screenshotsQueue = {}
 
     for floor = 1, Tower.getMaxFloor() do
         for room = 1, 4 do
-            local name = string.format("%02d-%02d", floor, room);
-            Log.info("Making screenshot of level " .. name)
-
-            Room.create("levels/" .. name .. ".lua")
-            Room.skipMessage()
-            love.graphics.reset()
-            love.graphics.clear()
-            Video.beginDrawing()
-            Room.draw()
-            Video.endDrawing()
-
-            local screenshot = love.graphics.newScreenshot()
-            screenshot:encode("png", screenshotsDir .. "/" .. name .. ".png");
+            screenshotsQueue[#screenshotsQueue + 1] = string.format("%02d-%02d", floor, room)
+            screenshotsPending = screenshotsPending + 1
         end
     end
+end
+
+-- Captures screenshot of the next enqueued level
+local function captureNextScreenshot()
+    local name = table.remove(screenshotsQueue, 1)
+    if name == nil then
+        return
+    end
+
+    Log.info("Making screenshot of level " .. name)
+    renderScreenshotLevel(name)
+
+    love.graphics.captureScreenshot(function(imageData)
+        love.filesystem.write("screenshots/" .. name .. ".png", imageData:encode("png"))
+        screenshotsPending = screenshotsPending - 1
+        if screenshotsPending <= 0 then
+            love.event.quit()
+        end
+    end)
 end
 
 -- Initializes game
@@ -114,10 +137,9 @@ function love.load()
     -- Finish initialization
     Log.info("Loading finished")
 
-    -- Make screenshots if set
+    -- Enqueue screenshots if set (captured one per frame in love.draw)
     if Config.makeScreenshots then
         makeScreenshots()
-        love.event.quit()
     end
 
     -- Play testing level if set
@@ -138,6 +160,9 @@ end
 
 -- Updates game
 function love.update(delta)
+    if screenshotsQueue then
+        return -- Screenshot mode has no game updates
+    end
     if busy or not love.window.isVisible() then
         busy = false
         return
@@ -152,6 +177,10 @@ end
 
 -- Draws game
 function love.draw()
+    if screenshotsQueue then
+        captureNextScreenshot()
+        return
+    end
     Video.beginDrawing()
     State.draw()
     Transition.draw()
