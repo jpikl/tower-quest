@@ -15,7 +15,7 @@ local Video      = require("engine.Video")
 local Notify     = require("game.Notify")
 
 -- Variables
-local busy = false
+local busy = false -- Flag to discard the next love.update() tick
 local screenshotsQueue = nil -- Level names waiting for screenshot (screenshot mode)
 local screenshotsPending = 0 -- Screenshot captures waiting for callback
 
@@ -46,6 +46,7 @@ local function installHooks()
         State.keyPressed(...)
     end)
 
+    -- Marks next love.update() to be skipped (see love.update below).
     love.busy = function()
         busy = true
     end
@@ -174,6 +175,7 @@ function love.update(delta)
         return -- Screenshot mode has no game updates
     end
     if busy or not love.window.isVisible() then
+        -- Discard inflated delta after blocking IO operations (like level load)
         busy = false
         return
     end
