@@ -41,7 +41,7 @@ end
 
 -- Saves profile data to file
 function Profile:save()
-    Log.info("Saving profile '%s' to '%s'", self.name, self.fileName)
+    Log.info("Saving profile to '%s'", self.fileName)
     local data = { name = self.name, levels = self.levels }
     local success, error = Json.save(self.fileName, data)
     if not success then
@@ -51,7 +51,7 @@ end
 
 -- Deletes profile
 function Profile:delete()
-    Log.info("Deleting profile '%s' in '%s'", self.name, self.fileName)
+    Log.info("Deleting profile in '%s'", self.fileName)
     if not love.filesystem.remove(self.fileName) then
         Log.info("Unable to delete '%s'", self.fileName)
     end
