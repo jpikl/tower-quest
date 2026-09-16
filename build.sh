@@ -26,7 +26,10 @@ GAME_SOURCES="*.lua engine game graphics levels libraries music sounds"
 GAME_README=README.md
 GAME_LICENSE=LICENSE.txt
 GAME_ICO=graphics/icon.ico
+GAME_LINUX_ICON=graphics/icon-big.png
 GAME_LOVE=$DIST_DIR/$GAME_CODE.love
+GAME_LINUX_APPDIR=$DIST_DIR/$GAME_CODE.AppDir
+GAME_LINUX_APPIMAGE=$DIST_DIR/$GAME_CODE.AppImage
 GAME_WIN64_EXE=$DIST_DIR/$GAME_CODE.exe
 GAME_MACOSX_ID=com.evilnote4d.towerquest
 GAME_MACOSX_APP=$DIST_DIR/$GAME_CODE.app
@@ -44,10 +47,23 @@ RELEASE_README_HTML_ENABLED=true
 RELEASE_README_HTML=$RELEASE_DIR/README.html
 RELEASE_LOVE_ENABLED=true
 RELEASE_LOVE_ZIP=$GAME_CODE-$GAME_VERSION.zip
+RELEASE_LINUX_ENABLED=true
+RELEASE_LINUX_ZIP=$GAME_CODE-$GAME_VERSION-linux.zip
 RELEASE_WIN64_ENABLED=true
 RELEASE_WIN64_ZIP=$GAME_CODE-$GAME_VERSION-win64.zip
 RELEASE_MACOSX_ENABLED=true
 RELEASE_MACOSX_ZIP=$GAME_CODE-$GAME_VERSION-macosx.zip
+
+################################################################################
+# Linux SDK configuration
+################################################################################
+
+LINUX_SDK_NAME=love-$LOVE_VERSION-x86_64
+LINUX_SDK_APPIMAGE_NAME=$LINUX_SDK_NAME.AppImage
+LINUX_SDK_APPIMAGE=$SDK_DIR/$LINUX_SDK_APPIMAGE_NAME
+LINUX_SDK_DIR=$SDK_DIR/$LINUX_SDK_NAME
+LINUX_SDK_URL=https://github.com/love2d/love/releases/download/$LOVE_VERSION/$LINUX_SDK_APPIMAGE_NAME
+LINUX_SDK_BIN=$LINUX_SDK_DIR/squashfs-root/bin/love
 
 ################################################################################
 # Win64 SDK configuration
@@ -83,6 +99,13 @@ RESHACKER_URL=http://www.angusj.com/resourcehacker/$RESHACKER_ZIP_NAME
 RESHACKER_EXE=$RESHACKER_DIR/ResourceHacker.exe
 
 ################################################################################
+# AppImageTool configuration
+################################################################################
+
+APPIMAGETOOL_EXE=$SDK_DIR/appimagetool-x86_64.AppImage
+APPIMAGETOOL_URL=https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+
+################################################################################
 # Generic helpers
 ################################################################################
 
@@ -95,6 +118,22 @@ print_section() {
 ################################################################################
 # SDK helpers
 ################################################################################
+
+download_linux_sdk() {
+  if [ ! -f "$LINUX_SDK_BIN" ]; then
+    mkdir -p "$LINUX_SDK_DIR"
+    if [ ! -f "$LINUX_SDK_APPIMAGE" ]; then
+      echo "Downloading LOVE Linux SDK"
+      wget -q -P "$SDK_DIR" "$LINUX_SDK_URL"
+    fi
+    echo "Extracting LOVE Linux SDK"
+    chmod +x "$LINUX_SDK_APPIMAGE"
+    cd "$LINUX_SDK_DIR" || return
+    "../$LINUX_SDK_APPIMAGE_NAME" --appimage-extract
+    cd ../..
+  fi
+  echo "LOVE Linux SDK location: $LINUX_SDK_BIN"
+}
 
 download_win64_sdk() {
   if [ ! -d "$WIN64_SDK_DIR" ]; then
@@ -141,6 +180,20 @@ download_reshacker() {
 
 reshacker() {
   WINEDEBUG=fixme-all wine "$RESHACKER_EXE" "$@"
+}
+
+################################################################################
+# AppImageTool helpers
+################################################################################
+
+download_appimagetool() {
+  if [ ! -f "$APPIMAGETOOL_EXE" ]; then
+    mkdir -p "$SDK_DIR"
+    echo "Downloading AppImageTool"
+    wget -q -P "$SDK_DIR" "$APPIMAGETOOL_URL"
+    chmod +x "$APPIMAGETOOL_EXE"
+  fi
+  echo "AppImageTool location: $APPIMAGETOOL_EXE"
 }
 
 ################################################################################
@@ -248,6 +301,42 @@ build_love_release() {
 }
 
 ################################################################################
+# Linux release
+################################################################################
+
+build_linux_appimage() {
+  echo "Building $GAME_LINUX_APPIMAGE"
+  download_appimagetool
+  rm -rf "$GAME_LINUX_APPDIR" "$GAME_LINUX_APPIMAGE"
+  cp -r "$LINUX_SDK_DIR/squashfs-root" "$GAME_LINUX_APPDIR"
+  cat "$LINUX_SDK_BIN" "$GAME_LOVE" > "$GAME_LINUX_APPDIR/bin/$GAME_CODE"
+  chmod +x "$GAME_LINUX_APPDIR/bin/$GAME_CODE"
+  rm -f "$GAME_LINUX_APPDIR/bin/love"
+  cp "$GAME_LINUX_ICON" "$GAME_LINUX_APPDIR/$GAME_CODE.png"
+  rm -f "$GAME_LINUX_APPDIR/love.svg"
+  if [ -f "$GAME_LINUX_APPDIR/love.desktop" ]; then
+    mv "$GAME_LINUX_APPDIR/love.desktop" "$GAME_LINUX_APPDIR/$GAME_CODE.desktop"
+  fi
+  if [ -f "$GAME_LINUX_APPDIR/$GAME_CODE.desktop" ]; then
+    sed -i "s/^Name=.*/Name=$GAME_TITLE/; s/^Exec=love/Exec=$GAME_CODE/; s/^Icon=love/Icon=$GAME_CODE/; s/^Categories=.*/Categories=Game;/" "$GAME_LINUX_APPDIR/$GAME_CODE.desktop"
+  fi
+  if [ -f "$GAME_LINUX_APPDIR/AppRun" ]; then
+    if grep -q "bin/love" "$GAME_LINUX_APPDIR/AppRun"; then
+      sed -i "s|bin/love|bin/$GAME_CODE|g" "$GAME_LINUX_APPDIR/AppRun"
+    fi
+  fi
+  ARCH=x86_64 "$APPIMAGETOOL_EXE" "$GAME_LINUX_APPDIR" "$GAME_LINUX_APPIMAGE"
+  chmod +x "$GAME_LINUX_APPIMAGE"
+}
+
+build_linux_release() {
+  build_linux_appimage
+  build_release_dir
+  cp "$GAME_LINUX_APPIMAGE" "$RELEASE_DIR"
+  zip_release_dir "$RELEASE_LINUX_ZIP"
+}
+
+################################################################################
 # Win64 release
 ################################################################################
 
@@ -328,6 +417,15 @@ print_section "LOVE release"
 
 if [ $RELEASE_LOVE_ENABLED = "true" ]; then
   build_love_release
+else
+  echo "Disabled"
+fi
+
+print_section "Linux release"
+
+if [ $RELEASE_LINUX_ENABLED = "true" ]; then
+  download_linux_sdk
+  build_linux_release
 else
   echo "Disabled"
 fi
