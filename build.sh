@@ -1,12 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-################################################################################
-# External tools
-################################################################################
-
-MARKDOWN=/usr/bin/markdown
-WINE=/usr/bin/wine
-PERL=/usr/bin/perl
+set -eu
 
 ################################################################################
 # Directories
@@ -103,27 +97,27 @@ print_section() {
 ################################################################################
 
 download_win64_sdk() {
-  if [ ! -d $WIN64_SDK_DIR ]; then
-    mkdir -p $SDK_DIR
-    if [ ! -f $WIN64_SDK_ZIP ]; then
+  if [ ! -d "$WIN64_SDK_DIR" ]; then
+    mkdir -p "$SDK_DIR"
+    if [ ! -f "$WIN64_SDK_ZIP" ]; then
       echo "Downloading LOVE Win64 SDK"
-      wget -q -P $SDK_DIR $WIN64_SDK_URL
+      wget -q -P "$SDK_DIR" "$WIN64_SDK_URL"
     fi
     echo "Extracting LOVE Win64 SDK"
-    unzip -q -d $SDK_DIR $WIN64_SDK_ZIP
+    unzip -q -d "$SDK_DIR" "$WIN64_SDK_ZIP"
   fi
   echo "LOVE Win64 SDK location: $WIN64_SDK_DIR"
 }
 
 download_macosx_sdk() {
-  if [ ! -d $MACOSX_SDK_DIR ]; then
-    mkdir -p $SDK_DIR
-    if [ ! -f $MACOSX_SDK_ZIP ]; then
+  if [ ! -d "$MACOSX_SDK_DIR" ]; then
+    mkdir -p "$SDK_DIR"
+    if [ ! -f "$MACOSX_SDK_ZIP" ]; then
       echo "Downloading LOVE Mac OS X SDK"
-      wget -q -P $SDK_DIR $MACOSX_SDK_URL
+      wget -q -P "$SDK_DIR" "$MACOSX_SDK_URL"
     fi
     echo "Extracting LOVE Mac OS X SDK"
-    unzip -q -d $MACOSX_SDK_DIR $MACOSX_SDK_ZIP
+    unzip -q -d "$MACOSX_SDK_DIR" "$MACOSX_SDK_ZIP"
   fi
   echo "LOVE Mac OS X SDK location: $MACOSX_SDK_DIR"
 }
@@ -133,20 +127,20 @@ download_macosx_sdk() {
 ################################################################################
 
 download_reshacker() {
-  if [ ! -d $RESHACKER_DIR ]; then
-    mkdir -p $SDK_DIR
-    if [ ! -f $RESHACKER_ZIP ]; then
+  if [ ! -d "$RESHACKER_DIR" ]; then
+    mkdir -p "$SDK_DIR"
+    if [ ! -f "$RESHACKER_ZIP" ]; then
     echo "Downloading Resource Hacker"
-      wget -q -P $SDK_DIR $RESHACKER_URL
+      wget -q -P "$SDK_DIR" "$RESHACKER_URL"
     fi
     echo "Extracting Resource Hacker"
-    unzip -q -d $RESHACKER_DIR $RESHACKER_ZIP
+    unzip -q -d "$RESHACKER_DIR" "$RESHACKER_ZIP"
   fi
   echo "Resource Hacker location: $RESHACKER_DIR"
 }
 
 reshacker() {
-  WINEDEBUG=fixme-all $WINE $RESHACKER_EXE "$@"
+  WINEDEBUG=fixme-all wine "$RESHACKER_EXE" "$@"
 }
 
 ################################################################################
@@ -155,14 +149,14 @@ reshacker() {
 
 clean_release_dir() {
   echo "Cleaning $RELEASE_DIR directory"
-  rm -rf $RELEASE_DIR
-  mkdir $RELEASE_DIR
+  rm -rf "$RELEASE_DIR"
+  mkdir "$RELEASE_DIR"
 }
 
 copy_release_text_file() {
-  if [ -x $PERL ]; then
+  if command -v perl >/dev/null; then
     # Convert LF newlines to CRLF newlines
-    $PERL -p -e 's/\n/\r\n/' < "$1" > "$RELEASE_DIR/$1"
+    perl -p -e 's/\n/\r\n/' < "$1" > "$RELEASE_DIR/$1"
   else
     cp "$1" "$RELEASE_DIR/$1"
   fi
@@ -170,18 +164,18 @@ copy_release_text_file() {
 
 copy_release_sources() {
   echo "Copying sources to $RELEASE_DIR directory"
-  copy_release_text_file $GAME_LICENSE
+  copy_release_text_file "$GAME_LICENSE"
   copy_release_text_file "CREDITS.txt"
   copy_release_text_file "CHANGES.txt"
 }
 
 write_release_readme_html() {
-  echo "$1" >> $RELEASE_README_HTML
+  echo "$1" >> "$RELEASE_README_HTML"
 }
 
 build_release_readme_html() {
   echo "Building HTML readme $RELEASE_README_HTML"
-  rm -rf $RELEASE_README_HTML
+  rm -rf "$RELEASE_README_HTML"
   write_release_readme_html "<!DOCTYPE html>"
   write_release_readme_html "<html>"
   write_release_readme_html "<head>"
@@ -194,23 +188,23 @@ build_release_readme_html() {
   write_release_readme_html "</style>"
   write_release_readme_html "</head>"
   write_release_readme_html "<body>"
-  $MARKDOWN --html4tags $GAME_README >> $RELEASE_README_HTML
+  pandoc "$GAME_README" -o "$RELEASE_README_HTML"
   write_release_readme_html "</body>"
   write_release_readme_html "</html>"
 }
 
 copy_release_readme() {
   echo "Creating $RELEASE_README"
-  cp $GAME_README $RELEASE_README
+  cp "$GAME_README" "$RELEASE_README"
 }
 
 build_release_readme() {
   if [ "$(basename "$GAME_README" .md)" != "$GAME_README" ]; then
     if [ $RELEASE_README_HTML_ENABLED = "true" ]; then
-      if [ -x $MARKDOWN ]; then
+      if command -v pandoc >/dev/null; then
         build_release_readme_html
       else
-        echo "Cannot build HTML readme: No $MARKDOWN executable found"
+        echo "Cannot build HTML readme: No 'pandoc' executable found"
         copy_release_readme
       fi
     else
@@ -229,9 +223,9 @@ build_release_dir() {
 
 zip_release_dir() {
   echo "Building $1"
-  cd $DIST_DIR || return
+  cd "$DIST_DIR" || return
   rm -f "$1"
-  zip -qr "$1" $RELEASE_DIR_NAME
+  zip -qr "$1" "$RELEASE_DIR_NAME"
   cd ..
 }
 
@@ -241,15 +235,16 @@ zip_release_dir() {
 
 build_love() {
   echo "Building $GAME_LOVE"
-  mkdir -p $DIST_DIR
-  rm -f $GAME_LOVE
-  zip -qr $GAME_LOVE $GAME_SOURCES
+  mkdir -p "$DIST_DIR"
+  rm -f "$GAME_LOVE"
+  # shellcheck disable=SC2086
+  zip -qr "$GAME_LOVE" $GAME_SOURCES
 }
 
 build_love_release() {
   build_release_dir
-  cp $GAME_LOVE $RELEASE_DIR
-  zip_release_dir $RELEASE_LOVE_ZIP
+  cp "$GAME_LOVE" "$RELEASE_DIR"
+  zip_release_dir "$RELEASE_LOVE_ZIP"
 }
 
 ################################################################################
@@ -258,20 +253,20 @@ build_love_release() {
 
 override_win64_exe_icon() {
   echo "Overriding $GAME_WIN64_EXE icon with $GAME_ICO"
-  reshacker -delete $GAME_WIN64_EXE, $GAME_WIN64_EXE, ICONGROUP, 1,
-  reshacker -addoverwrite $GAME_WIN64_EXE, $GAME_WIN64_EXE, $GAME_ICO, ICONGROUP, MAINICON, 0
+  reshacker -open "$GAME_WIN64_EXE" -save "$GAME_WIN64_EXE" -action delete -mask ICONGROUP,1,
+  reshacker -open "$GAME_WIN64_EXE" -save "$GAME_WIN64_EXE" -action addoverwrite -res "$GAME_ICO" -mask ICONGROUP,MAINICON,0
 }
 
 build_win64_exe() {
   echo "Building $GAME_WIN64_EXE"
-  rm -f $GAME_WIN64_EXE
-  cat $WIN64_SDK_DIR/love.exe $GAME_LOVE > $GAME_WIN64_EXE
+  rm -f "$GAME_WIN64_EXE"
+  cat "$WIN64_SDK_DIR/love.exe" "$GAME_LOVE" > "$GAME_WIN64_EXE"
   if [ $RESHACKER_ENABLED = "true" ]; then
-    if [ -x $WINE ]; then
+    if command -v wine >/dev/null; then
       download_reshacker
       override_win64_exe_icon
     else
-      echo "Cannot override $GAME_WIN64_EXE icon: No $WINE executable found"
+      echo "Cannot override $GAME_WIN64_EXE icon: No 'wine' executable found"
     fi
   else
     echo "Resource Hacker disabled"
@@ -281,16 +276,17 @@ build_win64_exe() {
 update_win64_release_license() {
   echo "Updating $RELEASE_LICENSE with $WIN64_SDK_LICENSE"
   printf "\r\n---------\r\n\r\n" >> "$RELEASE_LICENSE"
-  cat $WIN64_SDK_LICENSE >> "$RELEASE_LICENSE"
+  cat "$WIN64_SDK_LICENSE" >> "$RELEASE_LICENSE"
 }
 
 build_win64_release() {
   build_win64_exe
   build_release_dir
   update_win64_release_license
-  cp $GAME_WIN64_EXE $RELEASE_DIR
-  cp $WIN64_SDK_SOURCES $RELEASE_DIR
-  zip_release_dir $RELEASE_WIN64_ZIP
+  cp "$GAME_WIN64_EXE" "$RELEASE_DIR"
+  # shellcheck disable=SC2086
+  cp $WIN64_SDK_SOURCES "$RELEASE_DIR"
+  zip_release_dir "$RELEASE_WIN64_ZIP"
 }
 
 ################################################################################
@@ -299,26 +295,26 @@ build_win64_release() {
 
 update_macosx_info() {
   echo "Updating $GAME_MACOSX_INFO"
-  sed -i "s/<string>org\.love2d\.love<\/string>/<string>$GAME_MACOSX_ID<\/string>/; s/<string>LÖVE<\/string>/<string>$GAME_TITLE<\/string>/" $GAME_MACOSX_INFO
-  grep -B 999 "<key>UTExportedTypeDeclarations</key>" $GAME_MACOSX_INFO > $GAME_MACOSX_INFO.tmp
-  grep -v "<key>UTExportedTypeDeclarations</key>" $GAME_MACOSX_INFO.tmp > $GAME_MACOSX_INFO
-  { echo "</dict>"; echo "</plist>"; } >> $GAME_MACOSX_INFO
-  rm $GAME_MACOSX_INFO.tmp
+  sed -i "s/<string>org\.love2d\.love<\/string>/<string>$GAME_MACOSX_ID<\/string>/; s/<string>LÖVE<\/string>/<string>$GAME_TITLE<\/string>/" "$GAME_MACOSX_INFO"
+  grep -B 999 "<key>UTExportedTypeDeclarations</key>" "$GAME_MACOSX_INFO" > "$GAME_MACOSX_INFO.tmp"
+  grep -v "<key>UTExportedTypeDeclarations</key>" "$GAME_MACOSX_INFO.tmp" > "$GAME_MACOSX_INFO"
+  { echo "</dict>"; echo "</plist>"; } >> "$GAME_MACOSX_INFO"
+  rm "$GAME_MACOSX_INFO.tmp"
 }
 
 build_macosx_app() {
   echo "Building $GAME_MACOSX_APP"
-  rm -rf $GAME_MACOSX_APP
-  cp -r $MACOSX_SDK_DIR/love.app $GAME_MACOSX_APP
-  cp $GAME_LOVE $GAME_MACOSX_APP/Contents/Resources/
+  rm -rf "$GAME_MACOSX_APP"
+  cp -r "$MACOSX_SDK_DIR/love.app" "$GAME_MACOSX_APP"
+  cp "$GAME_LOVE" "$GAME_MACOSX_APP/Contents/Resources/"
   update_macosx_info
 }
 
 build_macosx_release() {
   build_macosx_app
   build_release_dir
-  cp -r $GAME_MACOSX_APP $RELEASE_DIR
-  zip_release_dir $RELEASE_MACOSX_ZIP
+  cp -r "$GAME_MACOSX_APP" "$RELEASE_DIR"
+  zip_release_dir "$RELEASE_MACOSX_ZIP"
 }
 
 ################################################################################
